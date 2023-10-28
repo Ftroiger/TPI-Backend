@@ -11,7 +11,7 @@ router.get('/alumnos', async (req, res) => {
 router.get('/alumnos/:id', async (req, res) => {
     try {
         const id = req.params.id
-        const found = await Alumno.findOne({ where: { id: id } })
+        const found = await Alumnos.findOne({ where: { id: id } })
         if (found) {
             res.json(found)
         } else {
@@ -21,4 +21,17 @@ router.get('/alumnos/:id', async (req, res) => {
     } catch (error) {
         res.status(500).send({ mensaje: 'Error Servidor!' })
     }
+})
+
+router.post('/loginalumno', async(req, res) => {
+    const data = req.body
+    const user = await Alumnos.findOne({
+        where: {
+            id: data.id,
+            nombre: data.nombre,
+            apellido: data.apellido,
+            documento: data.documento,
+            fec_nacimiento: data.fec_nacimiento
+        }
+    })
 })
