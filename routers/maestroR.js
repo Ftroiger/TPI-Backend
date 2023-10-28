@@ -35,3 +35,5 @@ router.post('/loginmaestro', async(req, res) => {
         }
     })
 })
+
+module.exports = {router}

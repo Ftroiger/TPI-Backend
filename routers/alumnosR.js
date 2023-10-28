@@ -23,7 +23,7 @@ router.get('/alumnos/:id', async (req, res) => {
     }
 })
 
-router.post('/loginalumno', async(req, res) => {
+/*router.post('/loginalumno', async(req, res) => {
     const data = req.body
     const user = await Alumnos.findOne({
         where: {
@@ -34,5 +34,5 @@ router.post('/loginalumno', async(req, res) => {
             fec_nacimiento: data.fec_nacimiento
         }
     })
-})
+})*/
 module.exports = {router}
