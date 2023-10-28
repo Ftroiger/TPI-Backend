@@ -1,7 +1,7 @@
-const DataTypes = require("sequelize");
-const sequelize = require("../data/cnn_db.js");
+const { DataTypes } = require('sequelize');
+const sequelize = require('../data/cnn_db.js');
 
-export const Alumno = sequelize.define("Alumnos", {
+const Alumno = sequelize.define('Alumnos', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -28,7 +28,9 @@ export const Alumno = sequelize.define("Alumnos", {
   },
 },
 {
-    timestamps: false,
-    sequelize
+    sequelize,
+    timestamps: false
 }
 );
+
+module.exports = { Alumno };
