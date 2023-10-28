@@ -2,6 +2,7 @@ const Materia = require ("../models/materia.js")
 const express = require('express')
 
 const router = express.Router()
+
 router.get('/materias', async (req, res) => {
     const materias = await Materia.findAll()
     res.json(materias)
@@ -22,7 +23,7 @@ router.get('/materias/:id', async (req, res) => {
     }
 })
 
-router.post('/materias', async (req, res) => {
+router.post('/loginmaterias', async (req, res) => {
     try {
         const data = req.body
         console.log(data)

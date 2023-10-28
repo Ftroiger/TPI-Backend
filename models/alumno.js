@@ -1,5 +1,5 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../data/cnn_db.js";
+const DataTypes = require("sequelize");
+const sequelize = require("../data/cnn_db.js");
 
 export const Alumno = sequelize.define("Alumnos", {
   id: {
