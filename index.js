@@ -1,11 +1,15 @@
-import { sequelize } from "./data/cnn_db.js"
-import  service  from "./services/alum_service.js"
+const express = require('express')
 
-(async function main(){
-    //await sequelize.sync()
-    //    .then(()=>{console.log('Base de productos sincronizada')})
-    //    .catch(()=>{console.log('Error al sicronizar la base')})
-    //
-    const lst = await service.getAll()
-    console.log(lst)
-})()
+const alumnos = require ("./routers/alumnosR.js")
+const materias = require("./routers/materiaR.js")
+
+const app = express()
+app.use(express.json())
+const PORT = 3000
+app.use('/api', alumnos.router)
+app.use('/api', materias.router)
+
+app.listen(PORT, async() => {
+    console.log(`App listening on port ${PORT}`)  
+})
+

@@ -9,8 +9,9 @@
   },
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
+    "express": "^4.18.2",
     "sequelize": "^6.33.0",
     "sqlite3": "^5.1.6"
   }
