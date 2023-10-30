@@ -1,17 +1,22 @@
-const Materia = require ("../models/materia.js")
 const express = require('express')
+const Materias = require ("../models/materia.js")
 
 const router = express.Router()
 
 router.get('/materias', async (req, res) => {
-    const materias = await Materia.findAll()
-    res.json(materias)
+    try {
+        const materias = await Materias.findAll()
+        res.status(200).json(materias) 
+    } catch(err){
+        res.status(500).json({ mensaje: 'Error del servidor: ' + mensaje.err })
+
+    }
 })
 
 router.get('/materias/:id', async (req, res) => {
     try {
         const id = req.params.id
-        const found = await Materia.findOne({ where: { id: id } })
+        const found = await Materias.findOne({ where: { id: id } })
         if (found) {
             res.json(found)
         } else {
@@ -19,20 +24,61 @@ router.get('/materias/:id', async (req, res) => {
         }
         console.log(found)
     } catch (error) {
-        res.status(500).send({ mensaje: 'Error del servidor' })
+        res.status(500).send({ mensaje: 'Error  del servidor: ' + mensaje.err})
     }
 })
 
-router.post('/loginmaterias', async (req, res) => {
+router.post('/materias', async (req, res) => {
     try {
         const data = req.body
-        console.log(data)
-        const materia = await Materia.create(data)
-        res.json(materia)
-
+        const mate = await Materias.create({
+            id: data.id,
+            nombre: data.nombre,
+            anio_curricular: data.anio_curricular,
+            fec_implementacion: data.fec_implementacion
+        })
+        res.status(201).json(mate)
     } catch (error) {
-        res.status(500).send({ mensaje: 'Error del servidor' })
+        res.status(400).json({mensaje: 'No se pudo agregar la materia: ' + err.mensaje})
     }
 })
+
+router.put('/materias/:id', async (req, res) => {
+    try {
+        const mateId = req.params.id
+        const found = await Materias.findOne({ where: { id: mateId } })
+
+        if (!found){
+            res.status(404).json({ mensaje: 'Materia no encontrada' })
+        } else{
+            const data = req.body
+            found.id = data.id
+            found.nombre = data.nombre
+            found.anio_curricular = data.anio_curricular
+            found.fec_implementacion = data.fec_implementacion
+
+            await found.save()
+
+            res.status(204).json({ mensaje: 'Se pudo actualizar correctamente' })
+        }
+
+
+    } catch (error) {
+        res.status(500).json({ message: 'No se pudo actualizar' + err.message})
+    }
+})
+
+
+router.delete('/materias/:id', async (req, res) =>{
+    try {
+        const userId = req.params.id
+        await Materias.destroy({ where: {id: userId}})
+        res.status(204).json({mensaje: 'Materia eliminada exitosamente'})
+    } catch(err){
+        res.status(500).json({ mensaje: 'Error del servidor: ' + err.message })
+    }
+
+})
+
 
 module.exports = {router}
