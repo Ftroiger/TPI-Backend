@@ -7,8 +7,8 @@ router.get('/alumnos', async (req, res) => {
     try {
         const alumnos = await Alumnos.findAll()
         res.json(alumnos)        
-    } catch(err){
-        res.status(500).json({mensaje: 'Error del servidor: ' + err.mensaje})
+    } catch(error){
+        res.status(500).json({mensaje: 'Error del servidor: ' + error.message})
     }
 
 })
@@ -25,7 +25,7 @@ router.get('/alumnos/:id', async (req, res) => {
         }
         console.log(found)
     } catch (error) {
-        res.status(500).send({ mensaje: 'Error Servidor: ' + error.mensaje })
+        res.status(500).send({ mensaje: 'Error Servidor: ' + error.message })
     }
 })
 
@@ -39,9 +39,9 @@ router.post('/alumnos', async (req, res) => {
             documento: data.documento,
             fec_nacimiento: data.fec_nacimiento
         })
-        res.sendStatus(201).json(user)
-    } catch (err){
-        res.status(400).json({mensaje: 'No se pudo agregar al alumno' + err.mensaje})
+        res.status(201).json(user)
+    } catch (error){
+        res.status(400).json({mensaje: 'No se pudo agregar al alumno' + error.message})
     }
 })
 
@@ -51,7 +51,7 @@ router.put('/alumnos/:id', async (req, res) => {
             const found = await Alumnos.findOne({ where: { id: userId } })
 
             if (!found){
-                res.sendStatus(404).json({mensaje: 'Alumno no encontrado'})
+                res.status(404).json({mensaje: 'Alumno no encontrado'})
             } else {
                 const data = req.body
                 found.nombre = data.nombre
@@ -61,12 +61,12 @@ router.put('/alumnos/:id', async (req, res) => {
 
                 await found.save()
 
-                res.sendStatus(204).json({mensaje: 'Se pudo actualizar correctamente'})
+                res.status(204).json({mensaje: 'Se pudo actualizar correctamente'})
             }
             
 
-        } catch (err){
-            res.status(500).json({ message: 'No se pudo actualizar' + err.message})
+        } catch (error){
+            res.status(500).json({ message: 'No se pudo actualizar' + error.message})
         }
 })
 
@@ -76,8 +76,8 @@ router.delete('/alumnos/:id', async (req, res) =>{
         const userId = req.params.id
         await Alumnos.destroy({ where: {id: userId}})
         res.status(204).json({mensaje: 'Alumno eliminado exitosamente'})
-    } catch(err){
-        res.status(500).json({ mensaje: 'Error del servidor: ' + err.message })
+    } catch(error){
+        res.status(500).json({ mensaje: 'Error del servidor: ' + error.message })
     }
 
 })

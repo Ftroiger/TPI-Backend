@@ -12,7 +12,10 @@ app.use('/api', alumnos.router)
 app.use('/api', materias.router)
 app.use('/api', maestros.router)
 
-app.listen(PORT, async() => {
-    console.log(`App listening on port ${PORT}`)
-})
+if(require.main === module){
+    app.listen(PORT, async() => {
+        console.log(`App listening on port ${PORT}`)
+    })
+}
 
+module.exports = app;

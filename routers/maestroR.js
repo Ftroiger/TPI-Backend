@@ -6,9 +6,9 @@ const router = express.Router()
 router.get('/maestros', async (req, res) => {
     try {
         const maestros = await Maestros.findAll()
-        res.status(200).json(materias) 
-    } catch (err){
-        res.status(500).json({ mensaje: 'Error del Servidor: ' + mensaje.err })
+        res.status(200).json(maestros) 
+    } catch (error){
+        res.status(500).json({ mensaje: 'Error del Servidor: ' + error.message })
 
     }
 
@@ -25,7 +25,7 @@ router.get('/maestros/:id', async (req, res) => {
         }
         console.log(found)
     } catch (error) {
-        res.status(500).send({ mensaje: 'Error Servidor: ' + mensaje.err })
+        res.status(500).send({ mensaje: 'Error Servidor: ' + error.message })
     }
 })
 
@@ -40,8 +40,8 @@ router.post('/maestros', async(req, res) => {
             fec_nacimiento: data.fec_nacimiento
         })
         res.status(201).json(user)
-    } catch(err){
-        res.status(400).json({mensaje: 'No se pudo agregar maestro: ' + err.mensaje })
+    } catch(error){
+        res.status(400).json({mensaje: 'No se pudo agregar maestro: ' + error.message })
     }
 })
 
@@ -51,7 +51,7 @@ router.put('/maestros/:id', async (req, res) => {
         const found = await Maestros.findOne({ where: { id: userId } })
 
         if (!found){
-            res.sendStatus(404).json({mensaje: 'Maestro no encontrado'})
+            res.status(404).json({mensaje: 'Maestro no encontrado'})
         } else {
             const data = req.body
             found.nombre = data.nombre
@@ -61,12 +61,12 @@ router.put('/maestros/:id', async (req, res) => {
 
             await found.save()
 
-            res.sendStatus(204).json({mensaje: 'Se pudo actualizar correctamente'})
+            res.status(204).json({mensaje: 'Se pudo actualizar correctamente'})
         }
         
 
-    } catch (err){
-        res.status(500).json({ mensaje: 'No se pudo actualizar' + err.mensaje})
+    } catch (error){
+        res.status(500).json({ mensaje: 'No se pudo actualizar' + error.message})
     }
 })
 
@@ -79,8 +79,8 @@ try {
 
     res.status(204).json({mensaje: 'Maestro eliminado exitosamente'})
 
-} catch(err){
-    res.status(500).json({ mensaje: 'Error del servidor: ' + err.message })
+} catch(error){
+    res.status(500).json({ mensaje: 'Error del servidor: ' + error.message })
 }
 
 })

@@ -1,5 +1,6 @@
 const express = require('express')
 const Materias = require ("../models/materia.js")
+const { ValidationError } = require('sequelize')
 
 const router = express.Router()
 
@@ -7,8 +8,8 @@ router.get('/materias', async (req, res) => {
     try {
         const materias = await Materias.findAll()
         res.status(200).json(materias) 
-    } catch(err){
-        res.status(500).json({ mensaje: 'Error del servidor: ' + mensaje.err })
+    } catch(error){
+        res.status(500).json({ mensaje: 'Error del servidor: ' + error.message })
 
     }
 })
@@ -24,7 +25,7 @@ router.get('/materias/:id', async (req, res) => {
         }
         console.log(found)
     } catch (error) {
-        res.status(500).send({ mensaje: 'Error  del servidor: ' + mensaje.err})
+        res.status(500).send({ mensaje: 'Error  del servidor: ' + error.message})
     }
 })
 
@@ -39,7 +40,7 @@ router.post('/materias', async (req, res) => {
         })
         res.status(201).json(mate)
     } catch (error) {
-        res.status(400).json({mensaje: 'No se pudo agregar la materia: ' + err.mensaje})
+        res.status(400).json({mensaje: 'No se pudo agregar la materia: ' + error.message})
     }
 })
 
@@ -64,7 +65,7 @@ router.put('/materias/:id', async (req, res) => {
 
 
     } catch (error) {
-        res.status(500).json({ message: 'No se pudo actualizar' + err.message})
+        res.status(500).json({ message: 'No se pudo actualizar' + error.message})
     }
 })
 
@@ -74,8 +75,8 @@ router.delete('/materias/:id', async (req, res) =>{
         const userId = req.params.id
         await Materias.destroy({ where: {id: userId}})
         res.status(204).json({mensaje: 'Materia eliminada exitosamente'})
-    } catch(err){
-        res.status(500).json({ mensaje: 'Error del servidor: ' + err.message })
+    } catch(error){
+        res.status(500).json({ mensaje: 'Error del servidor: ' + error.message })
     }
 
 })

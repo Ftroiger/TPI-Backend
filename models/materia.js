@@ -16,7 +16,7 @@ const Materia = sequelize.define("Materias", {
     allowNull: false,
   },
   fec_implementacion: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false,
   },
 },
