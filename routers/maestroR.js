@@ -8,7 +8,7 @@ router.get('/maestros', async (req, res) => {
         const maestros = await Maestros.findAll()
         res.status(200).json(materias) 
     } catch (err){
-        res.status(500).json({ mensaje: 'Error Servidor: ' + mensaje.err })
+        res.status(500).json({ mensaje: 'Error del Servidor: ' + mensaje.err })
 
     }
 
