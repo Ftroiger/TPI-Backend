@@ -40,7 +40,7 @@ describe("GET /api/maestros/:id", function () {
         expect(res.statusCode).toEqual(404);
         expect(res.body).toEqual(
             expect.objectContaining(
-                { mensaje: 'No existe el maestro' }
+                { mensaje: 'Maestro no encontrado' }
             )
         );
     }
@@ -87,12 +87,12 @@ describe('PUT /maestros/:id', ()=>{
     it("Debería retornar cód 204 si objeto 4 modificado", async () => {
         const res = await request(app).put("/api/maestros/4")
         .set('Accept', 'application/json')
-        .send({id:99, nombre: 'NuevoMaestros', apellido: 'NuevoApellido', documento: 44606024, fec_nacimiento: '06/01/2003'})
+        .send({id:4, nombre: 'NuevoMaestros', apellido: 'NuevoApellido', documento: 44606024, fec_nacimiento: '06/01/2003'})
         expect(res.statusCode).toEqual(204);
     },15000
     )
 
-    it("Deberría retornar cód 404 si objeto no encontrado", async () => {
+    it("Debería retornar cód 404 si objeto no encontrado", async () => {
         const res = await request(app).put("/api/maestros/77");
         expect(res.statusCode).toEqual(404);
         expect(res.body).toEqual(
