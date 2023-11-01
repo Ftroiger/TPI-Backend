@@ -54,6 +54,7 @@ router.put('/maestros/:id', async (req, res) => {
             res.status(404).json({mensaje: 'Maestro no encontrado'})
         } else {
             const data = req.body
+            found.id = data.id
             found.nombre = data.nombre
             found.apellido = data.apellido
             found.documento = data.documento
